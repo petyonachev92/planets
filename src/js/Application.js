@@ -53,10 +53,10 @@ export default class Application extends EventEmitter {
 
   async _load(url) {
     try {
+      const response = await fetch(url);
+      const data = await response.json();
 
-      let data = await getData(url);
-
-      let next = data.next;
+      const next = data.next;
       let planetsArr = data.results;
 
       planetsArr.forEach(planet => {
@@ -96,22 +96,5 @@ export default class Application extends EventEmitter {
 
   _stopLoading() {
     this._loading.style.display = 'none';
-  }
-
-
-
-}
-
-//get each planet data and return it
-async function getData(url) {
-  try {
-  
-    const response = await fetch(url);
-    const data = await response.json();
-
-    return data;      
-  }
-  catch (err) {
-    console.error(err);
   }
 }
